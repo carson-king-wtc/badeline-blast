@@ -9,6 +9,7 @@ fric=0.9
 candash=true
 dashspeed=15
 dsp=[0,0]
+name=get_string("enter name:","madeline")
 
 randomize()
 var choice = irandom_range(1, 10000)

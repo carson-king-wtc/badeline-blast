@@ -4,3 +4,4 @@
 candash=false
 hp=100
 mhp=100
+name=""

@@ -10,7 +10,7 @@ network_connect(client,ip,port)
 
 instances=ds_map_create()
 idd=0
-Player = instance_create_layer(random(room_width),room_height/2,"Instances",local_player)
+Player = instance_create_layer(room_width/2,room_height/2,"Instances",local_player)
 idd= Player.my_id
 
 ds_map_add(instances, idd, Player)

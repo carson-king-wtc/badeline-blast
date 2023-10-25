@@ -102,6 +102,7 @@ if(instance_exists(Client&&my_id==Client.idd))
 	buffer_write(buff,buffer_s16,y)
 	buffer_write(buff,buffer_s16,candash)
 	buffer_write(buff,buffer_s16,hp)
+	buffer_write(buff,buffer_string,name)
 	network_send_packet(Client.client, buff, buffer_tell(buff))
 	buffer_delete(buff)
 }

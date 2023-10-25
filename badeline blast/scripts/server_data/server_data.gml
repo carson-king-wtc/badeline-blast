@@ -16,6 +16,7 @@ function server_data() {
 			var player_y =			buffer_read(packet, buffer_s16);
 			var candash =		buffer_read(packet, buffer_s16);
 			var hp =		buffer_read(packet, buffer_s16);
+			var name =		buffer_read(packet, buffer_string);
 			
 			//Now take all those variables, and send them to all of the other clients
 			//Send them in the same order they were read above
@@ -27,6 +28,7 @@ function server_data() {
 			buffer_write(buff, buffer_s16, player_y);
 			buffer_write(buff, buffer_s16, candash);
 			buffer_write(buff, buffer_s16, hp);
+			buffer_write(buff, buffer_string, name);
 			
 			//Loop through the total player list (containing sockets) and send the packet to each one
 			for (var i = 0; i < ds_list_size(total_players); i++) {
