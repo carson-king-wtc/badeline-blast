@@ -1,6 +1,10 @@
 /// @description Insert description here
 // You can write your code in this editor
 var coll=c_blue
+if(i<=dashlength*0.75&&!candash)
+{
+	coll=c_white
+}
 if(candash)
 {
 	coll=c_red

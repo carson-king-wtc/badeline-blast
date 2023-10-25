@@ -45,6 +45,7 @@
     {"id":{"name":"menu","path":"objects/menu/menu.yy",},},
     {"id":{"name":"Sprite1","path":"sprites/Sprite1/Sprite1.yy",},},
     {"id":{"name":"Server","path":"objects/Server/Server.yy",},},
+    {"id":{"name":"dash","path":"particles/dash/dash.yy",},},
     {"id":{"name":"Room1","path":"rooms/Room1/Room1.yy",},},
   ],
   "RoomOrderNodes": [
