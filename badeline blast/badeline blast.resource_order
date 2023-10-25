@@ -17,6 +17,7 @@
     {"name":"Timelines","order":8,"path":"folders/Timelines.yy",},
   ],
   "ResourceOrderSettings": [
+    {"name":"Sprite2","order":16,"path":"sprites/Sprite2/Sprite2.yy",},
     {"name":"Client","order":1,"path":"objects/Client/Client.yy",},
     {"name":"player_buffer","order":5,"path":"objects/player_buffer/player_buffer.yy",},
     {"name":"serverRoom","order":2,"path":"rooms/serverRoom/serverRoom.yy",},

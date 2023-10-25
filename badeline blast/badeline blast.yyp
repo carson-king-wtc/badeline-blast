@@ -34,6 +34,7 @@
     "IDEVersion": "2023.8.2.108",
   },
   "resources": [
+    {"id":{"name":"Sprite2","path":"sprites/Sprite2/Sprite2.yy",},},
     {"id":{"name":"Client","path":"objects/Client/Client.yy",},},
     {"id":{"name":"player_buffer","path":"objects/player_buffer/player_buffer.yy",},},
     {"id":{"name":"serverRoom","path":"rooms/serverRoom/serverRoom.yy",},},

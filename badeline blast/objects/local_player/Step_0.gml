@@ -16,7 +16,7 @@ if(instance_exists(Client&&my_id==Client.idd))
 		vsp=(dkey-ukey)*dashspeed
 		hsp=(rkey-lkey)*dashspeed
 		dsp=[hsp,vsp]
-		i=15
+		i=10
 		candash=false
 	}
 	if(i>0)

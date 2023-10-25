@@ -10,6 +10,7 @@ candash=true
 dashspeed=15
 dsp=[0,0]
 name=get_string("enter name:","madeline")
+image_xscaley=1
 
 randomize()
 var choice = irandom_range(1, 10000)
