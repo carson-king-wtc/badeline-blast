@@ -7,9 +7,13 @@ if(hp>0)
 	{
 		coll=c_white
 	}
-	if(candash)
+	if(candash==1)
 	{
 		coll=c_red
+	}
+	if(candash==2)
+	{
+		coll=make_color_rgb(255,192,203)
 	}
 	if(hsp!=0)
 	{

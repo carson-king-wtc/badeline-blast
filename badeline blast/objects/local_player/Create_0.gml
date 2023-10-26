@@ -6,12 +6,14 @@ msp=7 //the movement speed of the player
 jsp=15 //the jump speed of the player
 grav=1 //the gravity of the player
 fric=0.9 //the friction of the player
-candash=true //whether the player can dash
+candash=1 //whether the player can dash
 dashspeed=15
 dsp=[0,0]
 name=get_string("enter name:","madeline")
 image_xscaley=1
 dashlength=9
+maxdashes=1
+
 
 randomize()
 var choice = irandom_range(1, 10000)
@@ -24,7 +26,7 @@ i2=0
 i3=90
 x=irandom(room_width)
 y=irandom(room_height)
-while(place_meeting(x,y,player_buffer)||place_meeting(x,y,wall))
+while(place_meeting(x,y,player_buffer)||place_meeting(x,y,wall)||!collision_line(x,bbox_bottom,x,room_height,wall,true,true))
 {
 	x=irandom(room_width)
 	y=irandom(room_height)
@@ -38,7 +40,7 @@ function reset()
 		{
 			x=irandom(room_width)
 			y=irandom(room_height)
-			while(place_meeting(x,y,player_buffer)||place_meeting(x,y,wall))
+			while(place_meeting(x,y,player_buffer)||place_meeting(x,y,wall)||!collision_line(x,bbox_bottom,x,room_height,wall,true,true))
 			{
 				x=irandom(room_width)
 				y=irandom(room_height)

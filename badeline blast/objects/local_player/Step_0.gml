@@ -3,6 +3,10 @@
 
 if(instance_exists(Client&&my_id==Client.idd))
 {
+	if(hp<=30)
+	{
+		maxdashes=2
+	}
 	var lasti=i
 	i--
 	i2--
@@ -42,7 +46,7 @@ if(instance_exists(Client&&my_id==Client.idd))
 		}
 		dsp=[hsp,vsp]
 		i=dashlength
-		candash=false
+		candash--
 	}
 	if(i>0)
 	{
@@ -59,7 +63,10 @@ if(instance_exists(Client&&my_id==Client.idd))
 			//show_message("")
 			if(i<=dashlength*0.75)
 			{
-				candash=true
+				if(candash<maxdashes)
+				{
+					candash=maxdashes
+				}
 			}
 			i=0
 			hsp=(rkey-lkey)*dashspeed
@@ -148,12 +155,22 @@ if(instance_exists(Client&&my_id==Client.idd))
 			}
 			if(lasti<=0)
 			{
-				candash=true
+				if(candash<maxdashes)
+				{
+					candash=maxdashes
+				}
 			}
 		}
 		else
 		{
-			vsp+=grav
+			if(vsp<20+(dkey*20))
+			{
+				vsp+=grav
+			}
+			else
+			{
+				vsp-=grav
+			}
 		}
 	}
 	if(!place_meeting(x,y+1,wall))
