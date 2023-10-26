@@ -5,6 +5,12 @@ if(instance_exists(Client&&my_id==Client.idd))
 {
 	var lasti=i
 	i--
+	i2--
+	if(i2>0)
+	{
+		var pp = part_system_create(techrings)
+		part_system_position(pp,x,y)
+	}
 	gamepad_set_axis_deadzone(0,0.5)
 	var lkey=keyboard_check(vk_left)||keyboard_check(ord("A"))||gamepad_button_check(0,gp_padl)||gamepad_axis_value(0, gp_axislh)<0
 	var rkey=keyboard_check(vk_right)||keyboard_check(ord("D"))||gamepad_button_check(0,gp_padr)||gamepad_axis_value(0, gp_axislh)>0
@@ -16,6 +22,10 @@ if(instance_exists(Client&&my_id==Client.idd))
 	{
 		vsp=(dkey-ukey)*dashspeed
 		hsp=(rkey-lkey)*dashspeed
+		if(vsp==0&&hsp==0)
+		{
+			hsp=dashspeed*image_xscaley
+		}
 		dsp=[hsp,vsp]
 		i=dashlength
 		candash=false
@@ -26,6 +36,9 @@ if(instance_exists(Client&&my_id==Client.idd))
 		part_system_position(pp,x,y)
 		hsp=dsp[0]
 		vsp=dsp[1]
+	}
+	if(i>-5)
+	{
 		if(place_meeting(x,y+1,wall)&&jkey)
 		{
 			//show_message("")
@@ -43,6 +56,10 @@ if(instance_exists(Client&&my_id==Client.idd))
 			else
 			{
 				vsp=-jsp
+			}
+			if(hsp!=0)
+			{
+				i2=30
 			}
 		}
 	}
@@ -83,45 +100,72 @@ if(instance_exists(Client&&my_id==Client.idd))
 				hsp=round(hsp)
 			}
 		}
-		if(place_meeting(x,y+1,wall)&&lasti<=0)
+		if(place_meeting(x,y+1,wall))
 		{
 			if(jkey)
 			{
 				vsp=-jsp
 			}
-			candash=true
+			if(lasti<=0)
+			{
+				candash=true
+			}
 		}
 		else
 		{
-			var col1=instance_place(x+3,y,wall)
-			var col2=instance_place(x-3,y,wall)
-			if(hsp>=0&&col1&&jkey)
-			{
-				if(hsp==0)
-				{
-					vsp=-jsp
-					hsp=-msp/2
-				}
-				else
-				{
-					vsp=-jsp/1.5
-					hsp=-msp
-				}
-			}
-			if(hsp<=0&&col2&&jkey)
-			{
-				if(hsp==0)
-				{
-					vsp=-jsp
-					hsp=msp/2
-				}
-				else
-				{
-					vsp=-jsp/1.5
-					hsp=msp
-				}
-			}
 			vsp+=grav
+		}
+	}
+	if(!place_meeting(x,y+1,wall))
+	{
+		var col1=instance_place(x+3+((i>-5)*20),y,wall)
+		var col2=instance_place(x-3-((i>-5)*20),y,wall)
+		if(col1&&hsp>0||col2&&hsp<0)
+		{
+			if(vsp>0)
+			{
+				vsp-=grav*0.9
+			}
+		}
+		if(hsp>=0&&col1&&jkey)
+		{
+			if(hsp==0)
+			{
+				vsp=-jsp
+				hsp=-msp/2
+			}
+			else
+			{
+				vsp=-jsp/1.5
+				hsp=-msp
+			}
+			if(i>-5)
+			{
+				i=0
+				vsp=-dashspeed*1.5
+				i2=30
+				hsp=-msp*2
+			}
+		}
+		if(hsp<=0&&col2&&jkey)
+		{
+			if(hsp==0)
+			{
+				vsp=-jsp
+				hsp=msp/2
+			}
+			else
+			{
+				vsp=-jsp/1.5
+				hsp=msp
+			}
+			if(i>-5)
+			{
+				i=0
+				vsp=-dashspeed*1.5
+				i2=30
+				hsp=msp*2
+			}
 		}
 	}
 	var col=instance_place(x+hsp,y,wall)

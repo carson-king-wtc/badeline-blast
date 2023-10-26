@@ -19,4 +19,5 @@ my_id=choice
 
 hp=100
 mhp=100
-i=0
+i=-5
+i2=0

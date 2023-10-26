@@ -25,5 +25,6 @@
     {"name":"local_player","order":3,"path":"objects/local_player/local_player.yy",},
     {"name":"wall","order":4,"path":"objects/wall/wall.yy",},
     {"name":"menu","order":2,"path":"objects/menu/menu.yy",},
+    {"name":"techrings","order":1,"path":"particles/techrings/techrings.yy",},
   ],
 }
