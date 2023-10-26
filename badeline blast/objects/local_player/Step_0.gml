@@ -6,6 +6,7 @@ if(instance_exists(Client&&my_id==Client.idd))
 	var lasti=i
 	i--
 	i2--
+	i3--
 	if(i2>0)
 	{
 		var pp = part_system_create(techrings)
