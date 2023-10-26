@@ -17,7 +17,7 @@ var xscale=image_xscaley
 var rot=0
 if(i>-5)
 {
-	rot=point_direction(x,y,x+hsp,y+vsp)
+	rot=point_direction(x,y,x+dsp[0],y+dsp[1])
 }
 var yscale=1
 if(rot>=180)

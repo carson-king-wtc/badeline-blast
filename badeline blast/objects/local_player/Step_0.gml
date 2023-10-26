@@ -20,6 +20,7 @@ if(instance_exists(Client&&my_id==Client.idd))
 	var dashkey=keyboard_check_pressed(vk_shift)||gamepad_button_check_pressed(0,gp_face3)
 	if(dashkey&&candash)
 	{
+		audio_play_sound(dashsfx,1000,false)
 		vsp=(dkey-ukey)*dashspeed
 		hsp=(rkey-lkey)*dashspeed
 		if(vsp==0&&hsp==0)
@@ -41,6 +42,7 @@ if(instance_exists(Client&&my_id==Client.idd))
 	{
 		if(place_meeting(x,y+1,wall)&&jkey)
 		{
+			audio_play_sound(hyper,1000,false)
 			//show_message("")
 			if(i<=dashlength*0.75)
 			{
@@ -118,8 +120,13 @@ if(instance_exists(Client&&my_id==Client.idd))
 		}
 		if(place_meeting(x,y+1,wall))
 		{
+			if(vsp!=0)
+			{
+				audio_play_sound(land,1000,false)
+			}
 			if(jkey)
 			{
+				audio_play_sound(jump,1000,false)
 				vsp=-jsp
 			}
 			if(lasti<=0)
@@ -145,6 +152,7 @@ if(instance_exists(Client&&my_id==Client.idd))
 		}
 		if(hsp>=0&&col1&&jkey)
 		{
+			audio_play_sound(climb,1000,false)
 			if(hsp==0)
 			{
 				vsp=-jsp
@@ -161,10 +169,12 @@ if(instance_exists(Client&&my_id==Client.idd))
 				vsp=-dashspeed*1.5
 				i2=30
 				hsp=-msp*2
+				audio_play_sound(superjump,1000,false)
 			}
 		}
 		if(hsp<=0&&col2&&jkey)
 		{
+			audio_play_sound(climb,1000,false)
 			if(hsp==0)
 			{
 				vsp=-jsp
@@ -181,6 +191,7 @@ if(instance_exists(Client&&my_id==Client.idd))
 				vsp=-dashspeed*1.5
 				i2=30
 				hsp=msp*2
+				audio_play_sound(superjump,1000,false)
 			}
 		}
 	}
