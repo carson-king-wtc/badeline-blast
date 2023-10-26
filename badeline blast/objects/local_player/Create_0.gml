@@ -1,12 +1,12 @@
 /// @description Insert description here
 // You can write your code in this editor
-hsp=0
-vsp=0
-msp=7
-jsp=15
-grav=1
-fric=0.9
-candash=true
+hsp=0 //the horizontal speed of the player
+vsp=0 //the vertical speed of the player
+msp=7 //the movement speed of the player
+jsp=15 //the jump speed of the player
+grav=1 //the gravity of the player
+fric=0.9 //the friction of the player
+candash=true //whether the player can dash
 dashspeed=15
 dsp=[0,0]
 name=get_string("enter name:","madeline")

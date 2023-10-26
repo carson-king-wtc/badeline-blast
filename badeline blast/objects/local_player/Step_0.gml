@@ -71,7 +71,7 @@ if(instance_exists(Client&&my_id==Client.idd))
 			vsp=sign(vsp)*msp
 		}
 	}
-	if(i>-10)
+	if(i>-5)
 	{
 		sprite_change(playersprdash)
 	}

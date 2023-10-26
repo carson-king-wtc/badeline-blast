@@ -1,6 +1,6 @@
 /// @description Insert description here
 // You can write your code in this editor
-var coll=c_blue
+var coll=c_aqua
 if(candash)
 {
 	coll=c_red
