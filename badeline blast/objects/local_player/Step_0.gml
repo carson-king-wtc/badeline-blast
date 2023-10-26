@@ -50,6 +50,8 @@ if(instance_exists(Client&&my_id==Client.idd))
 			}
 			i=0
 			hsp=(rkey-lkey)*dashspeed
+			var pp = part_system_create(jumppart)
+			part_system_position(pp,x,bbox_bottom)
 			if(dsp[1]>0)
 			{
 				hsp=(rkey-lkey)*dashspeed*1.2
@@ -128,6 +130,8 @@ if(instance_exists(Client&&my_id==Client.idd))
 			{
 				audio_play_sound(jump,1000,false)
 				vsp=-jsp
+				var pp = part_system_create(jumppart)
+				part_system_position(pp,x,y)
 			}
 			if(lasti<=0)
 			{

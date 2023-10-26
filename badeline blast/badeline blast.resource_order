@@ -27,6 +27,7 @@
     {"name":"clientRoom","order":1,"path":"rooms/clientRoom/clientRoom.yy",},
     {"name":"playersprrun","order":2,"path":"sprites/playersprrun/playersprrun.yy",},
     {"name":"hyper","order":6,"path":"sounds/hyper/hyper.yy",},
+    {"name":"jumppart","order":2,"path":"particles/jumppart/jumppart.yy",},
     {"name":"hair","order":1,"path":"sprites/hair/hair.yy",},
     {"name":"climb","order":5,"path":"sounds/climb/climb.yy",},
     {"name":"dashsfx","order":3,"path":"sounds/dashsfx/dashsfx.yy",},
@@ -36,6 +37,7 @@
     {"name":"menu","order":2,"path":"objects/menu/menu.yy",},
     {"name":"jump","order":1,"path":"sounds/jump/jump.yy",},
     {"name":"superjump","order":2,"path":"sounds/superjump/superjump.yy",},
+    {"name":"Sprite7","order":3,"path":"sprites/Sprite7/Sprite7.yy",},
     {"name":"techrings","order":1,"path":"particles/techrings/techrings.yy",},
   ],
 }
