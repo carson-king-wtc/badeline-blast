@@ -16,8 +16,8 @@ if(instance_exists(Client&&my_id==Client.idd))
 	var rkey=keyboard_check(vk_right)||keyboard_check(ord("D"))||gamepad_button_check(0,gp_padr)||gamepad_axis_value(0, gp_axislh)>0
 	var ukey=keyboard_check(vk_up)||keyboard_check(ord("W"))||gamepad_button_check(0,gp_padu)||gamepad_axis_value(0, gp_axislv)<0
 	var dkey=keyboard_check(vk_down)||keyboard_check(ord("S"))||gamepad_button_check(0,gp_padd)||gamepad_axis_value(0, gp_axislv)>0
-	var jkey=keyboard_check_pressed(vk_space)||gamepad_button_check_pressed(0,gp_face1)
-	var dashkey=keyboard_check_pressed(vk_shift)||gamepad_button_check_pressed(0,gp_face3)
+	var jkey=keyboard_check_pressed(vk_space)||gamepad_button_check_pressed(0,gp_face1)||keyboard_check(ord("Z"))
+	var dashkey=keyboard_check_pressed(vk_shift)||gamepad_button_check_pressed(0,gp_face3)||keyboard_check(ord("X"))
 	if(dashkey&&candash)
 	{
 		audio_play_sound(dashsfx,1000,false)
