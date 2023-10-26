@@ -23,6 +23,7 @@ if(client < 0)
 function find_winner()
 {
 	var alive=instance_number(player_buffer)
+	var alive_players=[]
 	var i=0
 	repeat(instance_number(player_buffer))
 	{
