@@ -22,6 +22,13 @@ mhp=100
 i=-5
 i2=0
 i3=90
+x=irandom(room_width)
+y=irandom(room_height)
+while(place_meeting(x,y,player_buffer)||place_meeting(x,y,wall))
+{
+	x=irandom(room_width)
+	y=irandom(room_height)
+}
 function reset()
 {
 	if(i3<=0)
@@ -29,8 +36,13 @@ function reset()
 		hp-=10
 		if(hp>0)
 		{
-			x=xstart
-			y=ystart
+			x=irandom(room_width)
+			y=irandom(room_height)
+			while(place_meeting(x,y,player_buffer)||place_meeting(x,y,wall))
+			{
+				x=irandom(room_width)
+				y=irandom(room_height)
+			}
 			hsp=0 //the horizontal speed of the player
 			vsp=0 //the vertical speed of the player
 			msp=7 //the movement speed of the player

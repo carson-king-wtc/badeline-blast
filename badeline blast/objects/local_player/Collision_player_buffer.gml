@@ -1,7 +1,7 @@
 /// @description Insert description here
 // You can write your code in this editor
 
-if(!other.candash)
+if(i<0)
 {
 	reset()
 }
