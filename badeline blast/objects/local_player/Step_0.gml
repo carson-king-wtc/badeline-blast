@@ -71,6 +71,22 @@ if(instance_exists(Client&&my_id==Client.idd))
 			vsp=sign(vsp)*msp
 		}
 	}
+	if(i>-10)
+	{
+		sprite_change(playersprdash)
+	}
+	else if(!place_meeting(x,y+1,wall))
+	{
+		sprite_change(playersprjump)
+	}
+	else if(abs(hsp)>0.1)
+	{
+		sprite_change(playersprrun)
+	}
+	else
+	{
+		sprite_change(playerspr)
+	}
 	if(i<=0)
 	{
 		if(abs(hsp)>msp||!place_meeting(x,y+1,wall))
