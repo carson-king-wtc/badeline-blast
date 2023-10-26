@@ -20,3 +20,15 @@ if(client < 0)
 	show_message("error connecting to server")
 	game_restart()
 }
+function find_winner()
+{
+	var alive=instance_number(player_buffer)
+	var i=0
+	repeat(instance_number(player_buffer))
+	{
+		if(instance_find(player_buffer,i).hp<=0)
+		{
+			alive-=1
+		}
+	}
+}

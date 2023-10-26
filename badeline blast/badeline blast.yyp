@@ -35,6 +35,7 @@
   },
   "resources": [
     {"id":{"name":"land","path":"sounds/land/land.yy",},},
+    {"id":{"name":"grave","path":"sprites/grave/grave.yy",},},
     {"id":{"name":"sprite_change","path":"scripts/sprite_change/sprite_change.yy",},},
     {"id":{"name":"Sprite2","path":"sprites/Sprite2/Sprite2.yy",},},
     {"id":{"name":"playersprdash","path":"sprites/playersprdash/playersprdash.yy",},},

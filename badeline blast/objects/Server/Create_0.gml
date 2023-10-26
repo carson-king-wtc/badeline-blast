@@ -11,3 +11,5 @@ if(server<0)
 	show_message("error creating server!")
 	game_restart()
 }
+badeline_x=irandom(room_width)
+badeline_y=irandom(room_height)

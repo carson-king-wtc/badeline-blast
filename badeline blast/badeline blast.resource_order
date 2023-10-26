@@ -18,6 +18,7 @@
   ],
   "ResourceOrderSettings": [
     {"name":"land","order":4,"path":"sounds/land/land.yy",},
+    {"name":"grave","order":5,"path":"sprites/grave/grave.yy",},
     {"name":"sprite_change","order":1,"path":"scripts/sprite_change/sprite_change.yy",},
     {"name":"Sprite2","order":16,"path":"sprites/Sprite2/Sprite2.yy",},
     {"name":"playersprdash","order":4,"path":"sprites/playersprdash/playersprdash.yy",},
