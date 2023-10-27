@@ -104,6 +104,7 @@ if(instance_exists(Client&&my_id==Client.idd))
 			{
 				techFramesLeft=30
 			}
+			coyoteFramesLeft=0
 		}
 	}
 	if(framesSinceLastDash<=0&&lastFramesSinceLastDash>0&&(!place_meeting(x,y+1,wall)||!jkey))
@@ -181,6 +182,7 @@ if(instance_exists(Client&&my_id==Client.idd))
 		}
 		else if (jkey_just_released){
 			vsp = max(vsp,minJumpForce)	
+			coyoteFramesLeft=0
 		}
 		
 		if(isOnFloor())

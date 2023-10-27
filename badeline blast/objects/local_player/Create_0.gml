@@ -48,7 +48,6 @@ while(place_meeting(x,y,player_buffer)||place_meeting(x,y,wall)||!collision_line
 function isOnFloor(){
 return place_meeting(x,y+1,wall)
 }
-
 function moveToward(from,to,by){
 	
 	if (abs(from-to) < by) {
