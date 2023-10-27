@@ -61,5 +61,9 @@ function reset()
 			i2=0
 			i3=120
 		}
+		else
+		{
+			array_push(Client.leaderboard,name)
+		}
 	}
 }

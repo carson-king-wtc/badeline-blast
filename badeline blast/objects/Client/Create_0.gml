@@ -1,6 +1,8 @@
 /// @description Insert description here
 // You can write your code in this editor
 
+leaderboard=[]
+
 port=get_integer("port:",7676)
 ip = get_string("ip adress:","10.99.3.48")
 

@@ -11,3 +11,4 @@ image_xscaley=1
 i=0
 dashlength=0
 dsp=[0,0]
+php=100

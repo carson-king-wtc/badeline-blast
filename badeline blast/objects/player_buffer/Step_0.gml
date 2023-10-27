@@ -8,7 +8,10 @@
 
 
 
-
+if(php>0&&hp<=0)
+{
+	array_push(Client.leaderboard,name)
+}
 if(!place_meeting(x,y+1,wall))
 {
 	sprite_change(playersprjump)
