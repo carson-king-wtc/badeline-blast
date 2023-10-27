@@ -36,6 +36,10 @@ if(hp>0)
 	{
 		draw_sprite_ext(sprite_index,image_index,x,y,1,1,rot,c_white,1)
 	}
+	draw_set_color(c_red)
+	draw_rectangle(x-64*(hp/mhp),y-96,x+64*(hp/mhp),y-64,false)
+	draw_set_color(c_white)
+	draw_text(x,y-128,name)
 }
 else
 {
