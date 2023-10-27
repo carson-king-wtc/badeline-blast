@@ -31,14 +31,14 @@ switch (PACKET_ID) {
 				//Read the rest of the data from the packet
 				var player_x = buffer_read(packet, buffer_s16);
 				var player_y = buffer_read(packet, buffer_s16);
-				var candash = buffer_read(packet, buffer_s16);
+				var amountOfDashesLeft = buffer_read(packet, buffer_s16);
 				var hp = buffer_read(packet, buffer_s16);
 				var name = buffer_read(packet, buffer_string);
 				
 				//Assign this data to the correct player
 				find_player.x = player_x;
 				find_player.y = player_y;
-				find_player.candash = candash;
+				find_player.amountOfDashesLeft = amountOfDashesLeft;
 				find_player.hp = hp;
 				find_player.name = name;
 			}

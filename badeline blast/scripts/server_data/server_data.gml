@@ -14,7 +14,7 @@ function server_data() {
 			var player_idd =			buffer_read(packet, buffer_u16);	//Read the contents of the buffer IN THE ORDER IT WAS SENT
 			var player_x =			buffer_read(packet, buffer_s16);
 			var player_y =			buffer_read(packet, buffer_s16);
-			var candash =		buffer_read(packet, buffer_s16);
+			var amountOfDashesLeft =		buffer_read(packet, buffer_s16);
 			var hp =		buffer_read(packet, buffer_s16);
 			var name =		buffer_read(packet, buffer_string);
 			
@@ -26,7 +26,7 @@ function server_data() {
 			buffer_write(buff, buffer_u16, player_idd);
 			buffer_write(buff, buffer_s16, player_x);
 			buffer_write(buff, buffer_s16, player_y);
-			buffer_write(buff, buffer_s16, candash);
+			buffer_write(buff, buffer_s16, amountOfDashesLeft);
 			buffer_write(buff, buffer_s16, hp);
 			buffer_write(buff, buffer_string, name);
 			

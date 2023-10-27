@@ -4,11 +4,11 @@
 
 
 
-if(candash<other.dashes&&other.active)
+if(amountOfDashesLeft<other.dashes&&other.active)
 {
 	other.alarm[0]=240
 	other.active=false
-	candash=other.dashes
+	amountOfDashesLeft=other.dashes
 	audio_play_sound(refilltouchsnd,1000,false)
 	var pp = part_system_create(refillpart)
 	part_system_position(pp,other.x,other.y)

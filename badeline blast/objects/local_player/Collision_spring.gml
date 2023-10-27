@@ -14,7 +14,7 @@ else
 	vsp=-dashspeed
 }
 audio_play_sound(sndspring,1000,false)
-i=-5
+framesSinceLastDash=-5
 other.alarm[0]=60
 other.image_index=1
-candash=true
+amountOfDashesLeft=true

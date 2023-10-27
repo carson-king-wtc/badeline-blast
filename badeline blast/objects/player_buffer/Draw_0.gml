@@ -3,11 +3,11 @@
 if(hp>0)
 {
 	var coll=c_aqua
-	if(i<=dashlength*0.75&&i>0&&!candash)
+	if(i<=dashlength*0.75&&i>0&&!amountOfDashesLeft)
 	{
 		coll=c_white
 	}
-	if(candash)
+	if(amountOfDashesLeft)
 	{
 		coll=c_red
 	}

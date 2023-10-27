@@ -1,8 +1,13 @@
 /// @description Insert description here
 // You can write your code in this editor
-
+var temporaryhsp=hsp
+var temporaryvsp=vsp
+var velocity={x:hsp,y:vsp}
 if(instance_exists(Client&&my_id==Client.idd))
 {
+
+	
+	
 	if(hp<=30)
 	{
 		maxdashes=2
@@ -11,11 +16,12 @@ if(instance_exists(Client&&my_id==Client.idd))
 	{
 		reset()
 	}
-	var lasti=i
-	i--
-	i2--
+	var lastFramesSinceLastDash=framesSinceLastDash
+	framesSinceLastDash--
+	techFramesLeft--
 	i3--
-	if(i2>0)
+	coyoteFramesLeft--
+	if(techFramesLeft>0)
 	{
 		var pp = part_system_create(techrings)
 		part_system_position(pp,x,y)
@@ -27,8 +33,11 @@ if(instance_exists(Client&&my_id==Client.idd))
 		rkey=keyboard_check(vk_right)||keyboard_check(ord("D"))||gamepad_button_check(0,gp_padr)||gamepad_axis_value(0, gp_axislh)>0
 		ukey=keyboard_check(vk_up)||keyboard_check(ord("W"))||gamepad_button_check(0,gp_padu)||gamepad_axis_value(0, gp_axislv)<0
 		dkey=keyboard_check(vk_down)||keyboard_check(ord("S"))||gamepad_button_check(0,gp_padd)||gamepad_axis_value(0, gp_axislv)>0
-		jkey=keyboard_check_pressed(vk_space)||gamepad_button_check_pressed(0,gp_face1)||keyboard_check(ord("Z"))
-		dashkey=keyboard_check_pressed(vk_shift)||gamepad_button_check_pressed(0,gp_face3)||keyboard_check(ord("X"))||gamepad_button_check_pressed(0,gp_shoulderrb)
+		jkey=keyboard_check(vk_space)||gamepad_button_check(0,gp_face1)||keyboard_check(ord("Z"))
+		jkey_just_pressed=keyboard_check_pressed(vk_space)||gamepad_button_check_pressed(0,gp_face1)||keyboard_check_pressed(ord("Z"))
+		jkey_just_released=keyboard_check_released(vk_space)||gamepad_button_check_released(0,gp_face1)||keyboard_check_released(ord("Z"))
+		dashkey=keyboard_check_pressed(vk_shift)||gamepad_button_check_pressed(0,gp_face3)||keyboard_check_pressed(ord("X"))
+		grabkey=keyboard_check(ord("C"))||gamepad_button_check(0,gp_shoulderrb)
 	}
 	else
 	{
@@ -38,8 +47,13 @@ if(instance_exists(Client&&my_id==Client.idd))
 		dkey=false
 		jkey=false
 		dashkey=false
+		grabkey=false
 	}
-	if(dashkey&&candash)
+	
+	//-1 to 1
+	var hDirection = (rkey-lkey)
+	
+	if(dashkey&&amountOfDashesLeft>0)
 	{
 		audio_play_sound(dashsfx,1000,false)
 		vsp=(dkey-ukey)*dashspeed
@@ -49,49 +63,50 @@ if(instance_exists(Client&&my_id==Client.idd))
 			hsp=dashspeed*image_xscaley
 		}
 		dsp=[hsp,vsp]
-		i=dashlength
-		candash--
+		framesSinceLastDash=dashlength
+		amountOfDashesLeft--
 	}
-	if(i>0)
+	if(framesSinceLastDash>0)
 	{
 		var pp = part_system_create(dash)
 		part_system_position(pp,x,y)
 		hsp=dsp[0]
 		vsp=dsp[1]
 	}
-	if(i>-5)
+	if(framesSinceLastDash>-5)
 	{
 		if(place_meeting(x,y+1,wall)&&jkey)
 		{
 			audio_play_sound(hyper,1000,false)
 			//show_message("")
-			if(i<=dashlength*0.75)
+			if(framesSinceLastDash<=dashlength*0.75)
 			{
-				if(candash<maxdashes)
+				if(amountOfDashesLeft<maxdashes)
 				{
-					candash=maxdashes
+					amountOfDashesLeft=maxdashes
+					stamina=maxstamina
 				}
 			}
-			i=0
+			framesSinceLastDash=0
 			hsp=(rkey-lkey)*dashspeed
 			var pp = part_system_create(jumppart)
 			part_system_position(pp,x,bbox_bottom)
 			if(dsp[1]>0)
 			{
 				hsp=(rkey-lkey)*dashspeed*1.2
-				vsp=-jsp*0.75
+				vsp=jumpForce*0.75
 			}
 			else
 			{
-				vsp=-jsp
+				vsp=jumpForce
 			}
 			if(hsp!=0)
 			{
-				i2=30
+				techFramesLeft=30
 			}
 		}
 	}
-	if(i<=0&&lasti>0&&(!place_meeting(x,y+1,wall)||!jkey))
+	if(framesSinceLastDash<=0&&lastFramesSinceLastDash>0&&(!place_meeting(x,y+1,wall)||!jkey))
 	{
 		if(vsp<=0)
 		{
@@ -99,7 +114,7 @@ if(instance_exists(Client&&my_id==Client.idd))
 			vsp=sign(vsp)*msp
 		}
 	}
-	if(i>-5)
+	if(framesSinceLastDash>-5)
 	{
 		sprite_change(playersprdash)
 	}
@@ -115,72 +130,114 @@ if(instance_exists(Client&&my_id==Client.idd))
 	{
 		sprite_change(playerspr)
 	}
-	if(i<=0)
+	if(framesSinceLastDash<=0)
 	{
-		if(abs(hsp)>msp||!place_meeting(x,y+1,wall))
-		{
-			fric=0.8
-		}
-		else
-		{
-			fric=0.5
-		}
-		if(hsp*(rkey-lkey)<msp)
-		{
-			if(fric==0.8)
+		
+		
+		
+		
+		//if we are trying to move, accelerate
+		if (hDirection != 0){
+			if(isOnFloor())
 			{
-				hsp+=(rkey-lkey)*msp/12
+				hsp =  moveToward(hsp,hDirection*msp,ACCEL)
 			}
 			else
 			{
-				hsp+=(rkey-lkey)*msp/3
-			}
-		}
-		if(!lkey&&!rkey||abs(hsp)>msp&&place_meeting(x,y+1,wall)&&lasti<=0)
-		{
-			hsp*=fric
-			if(abs(hsp-round(hsp))<=0.1)
-			{
-				hsp=round(hsp)
-			}
-		}
-		if(place_meeting(x,y+1,wall))
-		{
-			if(vsp!=0)
-			{
-				audio_play_sound(land,1000,false)
-			}
-			if(jkey)
-			{
-				audio_play_sound(jump,1000,false)
-				vsp=-jsp
-				var pp = part_system_create(jumppart)
-				part_system_position(pp,x,y)
-			}
-			if(lasti<=0)
-			{
-				if(candash<maxdashes)
+				if(hsp*hDirection>msp)
 				{
-					candash=maxdashes
+					hsp =  moveToward(hsp,hDirection*msp,AIRACCELNATURAL)
+				}
+				else
+				{
+					hsp =  moveToward(hsp,hDirection*msp,AIRACCEL)
 				}
 			}
 		}
-		else
-		{
-			if(vsp<20+(dkey*20))
+		else{
+			if(isOnFloor())
 			{
-				vsp+=grav
+				hsp =  moveToward(hsp,0,DECCEL)
 			}
 			else
 			{
-				vsp-=grav
+				hsp =  moveToward(hsp,0,AIRDECCEL)
 			}
 		}
+		
+		
+	
+		
+		//jumpin boiiii
+		
+		//we are trying to jump and we were on the floor in the last 10 frames
+		if(jkey_just_pressed&&coyoteFramesLeft>0)
+		{
+			audio_play_sound(jump,1000,false)
+			var pp = part_system_create(jumppart)
+			part_system_position(pp,x,y)
+			
+			vsp = jumpForce
+		}
+		else if (jkey_just_released){
+			vsp = max(vsp,minJumpForce)	
+		}
+		
+		if(isOnFloor())
+		{
+			coyoteFramesLeft=10
+			
+			
+			if(lastFramesSinceLastDash<=0)
+			{
+				if(amountOfDashesLeft<maxdashes)
+				{
+					amountOfDashesLeft = maxdashes
+					stamina=maxstamina
+				}
+			}
+			
+			//if we're going down, set the vertical speed to 0
+			
+		} else{	//we are not on the floor
+			//if we're not on the ground or falling faster than terminal velocity, apply gravity
+			if(vsp<maxFallSpeed)
+			{
+				vsp+=grav
+			}
+		}
+		
+		
+		
 	}
-	if(!place_meeting(x,y+1,wall))
+	
+	if(!isOnFloor())
 	{
-		var col1=instance_place(x+3+((i>-5)*20),y,wall)
-		var col2=instance_place(x-3-((i>-5)*20),y,wall)
+		var col1=instance_place(x+3+((framesSinceLastDash>-5)*20),y,wall)
+		var col2=instance_place(x-3-((framesSinceLastDash>-5)*20),y,wall)
+		if(col1||col2)
+		{
+			if(grabkey&&stamina>0)
+			{
+				hsp=0
+				vsp=0
+				vsp=(dkey-ukey)*2
+				if(jkey_just_pressed)
+				{
+					vsp=jumpForce
+					stamina-=maxstamina/4
+				}
+				if(col1)
+				{
+					x=col1.x-32-abs(x-bbox_right)
+				}
+				if(col2)
+				{
+					x=col2.x+32+abs(x-bbox_left)
+				}
+				stamina--
+			}
+		}
 		if(col1&&hsp>0||col2&&hsp<0)
 		{
 			if(vsp>0)
@@ -188,46 +245,46 @@ if(instance_exists(Client&&my_id==Client.idd))
 				vsp-=grav*0.9
 			}
 		}
-		if(hsp>=0&&col1&&jkey)
+		if(hsp>=0&&col1&&jkey_just_pressed)
 		{
 			audio_play_sound(climb,1000,false)
 			if(hsp==0)
 			{
-				vsp=-jsp
+				vsp=jumpForce
 				hsp=-msp/2
 			}
 			else
 			{
-				vsp=-jsp/1.5
+				vsp=jumpForce/1.5
 				hsp=-msp
 			}
-			if(i>-5)
+			if(framesSinceLastDash>-5)
 			{
-				i=0
+				framesSinceLastDash=0
 				vsp=-dashspeed*1.5
-				i2=30
+				techFramesLeft=30
 				hsp=-msp*2
 				audio_play_sound(superjump,1000,false)
 			}
 		}
-		if(hsp<=0&&col2&&jkey)
+		if(hsp<=0&&col2&&jkey_just_pressed)
 		{
 			audio_play_sound(climb,1000,false)
 			if(hsp==0)
 			{
-				vsp=-jsp
+				vsp=jumpForce
 				hsp=msp/2
 			}
 			else
 			{
-				vsp=-jsp/1.5
+				vsp=jumpForce/1.5
 				hsp=msp
 			}
-			if(i>-5)
+			if(framesSinceLastDash>-5)
 			{
-				i=0
+				framesSinceLastDash=0
 				vsp=-dashspeed*1.5
-				i2=30
+				techFramesLeft=30
 				hsp=msp*2
 				audio_play_sound(superjump,1000,false)
 			}
@@ -252,6 +309,9 @@ if(instance_exists(Client&&my_id==Client.idd))
 		{
 		    y += sign(vsp)
 		}
+		if (vsp > 0&&dashFramesLeft<0){
+			audio_play_sound(land,1000,false)
+		}
 		vsp=0
 	}
 	y+=vsp
@@ -262,7 +322,7 @@ if(instance_exists(Client&&my_id==Client.idd))
 	buffer_write(buff,buffer_u16,my_id)
 	buffer_write(buff,buffer_s16,x)
 	buffer_write(buff,buffer_s16,y)
-	buffer_write(buff,buffer_s16,candash)
+	buffer_write(buff,buffer_s16,amountOfDashesLeft)
 	buffer_write(buff,buffer_s16,hp)
 	buffer_write(buff,buffer_string,name)
 	network_send_packet(Client.client, buff, buffer_tell(buff))
