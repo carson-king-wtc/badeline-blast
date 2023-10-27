@@ -309,7 +309,7 @@ if(instance_exists(Client&&my_id==Client.idd))
 		{
 		    y += sign(vsp)
 		}
-		if (vsp > 0&&dashFramesLeft<0){
+		if (vsp > 0&&amountOfDashesLeft<0){
 			audio_play_sound(land,1000,false)
 		}
 		vsp=0
