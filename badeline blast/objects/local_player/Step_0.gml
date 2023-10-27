@@ -292,6 +292,10 @@ if(instance_exists(Client&&my_id==Client.idd))
 			}
 		}
 	}
+	else
+	{
+		stamina=maxstamina
+	}
 	var col=instance_place(x+hsp,y,wall)
 	if col
 	{
