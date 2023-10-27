@@ -5,7 +5,7 @@ if(other.dir==90)
 {
 	vsp=lengthdir_y(dashspeed*1.5,other.dir)
 }
-else if(other.dir==190)
+else if(other.dir==270)
 {
 	vsp=lengthdir_y(dashspeed*1.5,other.dir)
 }
