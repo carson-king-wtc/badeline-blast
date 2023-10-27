@@ -7,6 +7,10 @@ if(instance_exists(Client&&my_id==Client.idd))
 	{
 		maxdashes=2
 	}
+	if(y>room_height)
+	{
+		reset()
+	}
 	var lasti=i
 	i--
 	i2--

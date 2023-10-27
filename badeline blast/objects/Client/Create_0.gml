@@ -41,7 +41,7 @@ function find_winner()
 	}
 	if(instance_number(player_buffer)<=0)
 	{
-		return false
+		return "only one player!"
 	}
 	repeat(instance_number(player_buffer))
 	{
