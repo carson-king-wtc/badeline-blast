@@ -5,9 +5,6 @@ var temporaryvsp=vsp
 var velocity={x:hsp,y:vsp}
 if(instance_exists(Client&&my_id==Client.idd))
 {
-
-	
-	
 	if(hp<=30)
 	{
 		maxdashes=2
