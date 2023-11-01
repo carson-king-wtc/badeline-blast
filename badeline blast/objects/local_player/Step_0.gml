@@ -19,7 +19,7 @@ if(instance_exists(Client&&my_id==Client.idd))
 	var lastFramesSinceLastDash=framesSinceLastDash
 	framesSinceLastDash--
 	techFramesLeft--
-	i3--
+	immunityFrames--
 	coyoteFramesLeft--
 	if(techFramesLeft>0)
 	{
