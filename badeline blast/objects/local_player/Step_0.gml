@@ -1,8 +1,23 @@
-/// @description Insert description here
+/// @description Player movement and everything else
 // You can write your code in this editor
-var temporaryhsp=hsp
-var temporaryvsp=vsp
-var velocity={x:hsp,y:vsp}
+
+//function for acceleration
+function moveToward(from,to,by){
+	
+	if (abs(from-to) < by) {
+		return to
+	}
+	
+	if (from < to) {
+		return from + by
+	}
+	
+	return from - by
+	
+}
+var temporaryhsp=horizontalSpeed
+var temporaryvsp=verticalSpeed
+var velocity={x:horizontalSpeed,y:verticalSpeed}
 if(instance_exists(Client&&my_id==Client.idd))
 {
 	if(hp<=30)
@@ -53,13 +68,13 @@ if(instance_exists(Client&&my_id==Client.idd))
 	if(dashkey&&amountOfDashesLeft>0)
 	{
 		audio_play_sound(dashsfx,1000,false)
-		vsp=(dkey-ukey)*dashspeed
-		hsp=(rkey-lkey)*dashspeed
-		if(vsp==0&&hsp==0)
+		verticalSpeed=(dkey-ukey)*dashspeed
+		horizontalSpeed=(rkey-lkey)*dashspeed
+		if(verticalSpeed==0&&horizontalSpeed==0)
 		{
-			hsp=dashspeed*image_xscaley
+			horizontalSpeed=dashspeed*image_xscaley
 		}
-		dsp=[hsp,vsp]
+		dsp=[horizontalSpeed,verticalSpeed]
 		framesSinceLastDash=dashlength
 		amountOfDashesLeft--
 	}
@@ -67,8 +82,8 @@ if(instance_exists(Client&&my_id==Client.idd))
 	{
 		var pp = part_system_create(dash)
 		part_system_position(pp,x,y)
-		hsp=dsp[0]
-		vsp=dsp[1]
+		horizontalSpeed=dsp[0]
+		verticalSpeed=dsp[1]
 	}
 	if(framesSinceLastDash>-5)
 	{
@@ -85,19 +100,19 @@ if(instance_exists(Client&&my_id==Client.idd))
 				}
 			}
 			framesSinceLastDash=0
-			hsp=(rkey-lkey)*dashspeed
+			horizontalSpeed=(rkey-lkey)*dashspeed
 			var pp = part_system_create(jumppart)
 			part_system_position(pp,x,bbox_bottom)
 			if(dsp[1]>0)
 			{
-				hsp=(rkey-lkey)*dashspeed*1.2
-				vsp=jumpForce*0.75
+				horizontalSpeed=(rkey-lkey)*dashspeed*1.2
+				verticalSpeed=jumpForce*0.75
 			}
 			else
 			{
-				vsp=jumpForce
+				verticalSpeed=jumpForce
 			}
-			if(hsp!=0)
+			if(horizontalSpeed!=0)
 			{
 				techFramesLeft=30
 			}
@@ -106,10 +121,10 @@ if(instance_exists(Client&&my_id==Client.idd))
 	}
 	if(framesSinceLastDash<=0&&lastFramesSinceLastDash>0&&(!place_meeting(x,y+1,wall)||!jkey))
 	{
-		if(vsp<=0)
+		if(verticalSpeed<=0)
 		{
-			hsp=sign(hsp)*msp
-			vsp=sign(vsp)*msp
+			horizontalSpeed=sign(horizontalSpeed)*movementSpeed
+			verticalSpeed=sign(verticalSpeed)*movementSpeed
 		}
 	}
 	if(framesSinceLastDash>-5)
@@ -120,7 +135,7 @@ if(instance_exists(Client&&my_id==Client.idd))
 	{
 		sprite_change(playersprjump)
 	}
-	else if(abs(hsp)>0.1)
+	else if(abs(horizontalSpeed)>0.1)
 	{
 		sprite_change(playersprrun)
 	}
@@ -138,28 +153,28 @@ if(instance_exists(Client&&my_id==Client.idd))
 		if (hDirection != 0){
 			if(isOnFloor())
 			{
-				hsp =  moveToward(hsp,hDirection*msp,ACCEL)
+				horizontalSpeed =  moveToward(horizontalSpeed,hDirection*movementSpeed,ACCEL)
 			}
 			else
 			{
-				if(hsp*hDirection>msp)
+				if(horizontalSpeed*hDirection>movementSpeed)
 				{
-					hsp =  moveToward(hsp,hDirection*msp,AIRACCELNATURAL)
+					horizontalSpeed =  moveToward(horizontalSpeed,hDirection*movementSpeed,AIRACCELNATURAL)
 				}
 				else
 				{
-					hsp =  moveToward(hsp,hDirection*msp,AIRACCEL)
+					horizontalSpeed =  moveToward(horizontalSpeed,hDirection*movementSpeed,AIRACCEL)
 				}
 			}
 		}
 		else{
 			if(isOnFloor())
 			{
-				hsp =  moveToward(hsp,0,DECCEL)
+				horizontalSpeed =  moveToward(horizontalSpeed,0,DECCEL)
 			}
 			else
 			{
-				hsp =  moveToward(hsp,0,AIRDECCEL)
+				horizontalSpeed =  moveToward(horizontalSpeed,0,AIRDECCEL)
 			}
 		}
 		
@@ -175,10 +190,10 @@ if(instance_exists(Client&&my_id==Client.idd))
 			var pp = part_system_create(jumppart)
 			part_system_position(pp,x,y)
 			
-			vsp = jumpForce
+			verticalSpeed = jumpForce
 		}
 		else if (jkey_just_released){
-			vsp = max(vsp,minJumpForce)	
+			verticalSpeed = max(verticalSpeed,minJumpForce)	
 			coyoteFramesLeft=0
 		}
 		
@@ -200,9 +215,9 @@ if(instance_exists(Client&&my_id==Client.idd))
 			
 		} else{	//we are not on the floor
 			//if we're not on the ground or falling faster than terminal velocity, apply gravity
-			if(vsp<maxFallSpeed)
+			if(verticalSpeed<maxFallSpeed)
 			{
-				vsp+=grav
+				verticalSpeed+=grav
 			}
 		}
 		
@@ -218,12 +233,12 @@ if(instance_exists(Client&&my_id==Client.idd))
 		{
 			if(grabkey&&stamina>0)
 			{
-				hsp=0
-				vsp=0
-				vsp=(dkey-ukey)*2
+				horizontalSpeed=0
+				verticalSpeed=0
+				verticalSpeed=(dkey-ukey)*2
 				if(jkey_just_pressed)
 				{
-					vsp=jumpForce
+					verticalSpeed=jumpForce
 					stamina-=maxstamina/4
 				}
 				if(col1)
@@ -237,54 +252,54 @@ if(instance_exists(Client&&my_id==Client.idd))
 				stamina--
 			}
 		}
-		if(col1&&hsp>0||col2&&hsp<0)
+		if(col1&&horizontalSpeed>0||col2&&horizontalSpeed<0)
 		{
-			if(vsp>0)
+			if(verticalSpeed>0)
 			{
-				vsp-=grav*0.9
+				verticalSpeed-=grav*0.9
 			}
 		}
-		if(hsp>=0&&col1&&jkey_just_pressed)
+		if(horizontalSpeed>=0&&col1&&jkey_just_pressed)
 		{
 			audio_play_sound(climb,1000,false)
-			if(hsp==0)
+			if(horizontalSpeed==0)
 			{
-				vsp=jumpForce
-				hsp=-msp/2
+				verticalSpeed=jumpForce
+				horizontalSpeed=-movementSpeed/2
 			}
 			else
 			{
-				vsp=jumpForce/1.5
-				hsp=-msp
+				verticalSpeed=jumpForce/1.5
+				horizontalSpeed=-movementSpeed
 			}
 			if(framesSinceLastDash>-5)
 			{
 				framesSinceLastDash=0
-				vsp=-dashspeed*1.5
+				verticalSpeed=-dashspeed*1.5
 				techFramesLeft=30
-				hsp=-msp*2
+				horizontalSpeed=-movementSpeed*2
 				audio_play_sound(superjump,1000,false)
 			}
 		}
-		if(hsp<=0&&col2&&jkey_just_pressed)
+		if(horizontalSpeed<=0&&col2&&jkey_just_pressed)
 		{
 			audio_play_sound(climb,1000,false)
-			if(hsp==0)
+			if(horizontalSpeed==0)
 			{
-				vsp=jumpForce
-				hsp=msp/2
+				verticalSpeed=jumpForce
+				horizontalSpeed=movementSpeed/2
 			}
 			else
 			{
-				vsp=jumpForce/1.5
-				hsp=msp
+				verticalSpeed=jumpForce/1.5
+				horizontalSpeed=movementSpeed
 			}
 			if(framesSinceLastDash>-5)
 			{
 				framesSinceLastDash=0
-				vsp=-dashspeed*1.5
+				verticalSpeed=-dashspeed*1.5
 				techFramesLeft=30
-				hsp=msp*2
+				horizontalSpeed=movementSpeed*2
 				audio_play_sound(superjump,1000,false)
 			}
 		}
@@ -293,31 +308,31 @@ if(instance_exists(Client&&my_id==Client.idd))
 	{
 		stamina=maxstamina
 	}
-	var col=instance_place(x+hsp,y,wall)
+	var col=instance_place(x+horizontalSpeed,y,wall)
 	if col
 	{
-		while(!place_meeting(x+sign(hsp),y,wall))
+		while(!place_meeting(x+sign(horizontalSpeed),y,wall))
 		{
-		    x += sign(hsp)
+		    x += sign(horizontalSpeed)
 		}
-		hsp=0
+		horizontalSpeed=0
 	}
-	x+=hsp
+	x+=horizontalSpeed
 
 	//vcol
-	col=instance_place(x,y+vsp,wall)
+	col=instance_place(x,y+verticalSpeed,wall)
 	if(col)
 	{
-		while(!place_meeting(x,y+sign(vsp),wall))
+		while(!place_meeting(x,y+sign(verticalSpeed),wall))
 		{
-		    y += sign(vsp)
+		    y += sign(verticalSpeed)
 		}
-		if (vsp > 0&&amountOfDashesLeft<0){
+		if (verticalSpeed > 0&&amountOfDashesLeft<0){
 			audio_play_sound(land,1000,false)
 		}
-		vsp=0
+		verticalSpeed=0
 	}
-	y+=vsp
+	y+=verticalSpeed
 	
 	var buff = buffer_create(32,buffer_grow,1)
 	buffer_seek(buff,buffer_seek_start,0)

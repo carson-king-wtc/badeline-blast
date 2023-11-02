@@ -16,7 +16,7 @@ if(!place_meeting(x,y+1,wall))
 {
 	sprite_change(playersprjump)
 }
-else if(abs(hsp)>0.1)
+else if(abs(horizontalSpeed)>0.1)
 {
 	sprite_change(playersprrun)
 }
@@ -26,6 +26,6 @@ else
 }
 
 
-hsp=x-xprevious
-vsp=y-yprevious
-dsp=[hsp,vsp]
+horizontalSpeed=x-xprevious
+verticalSpeed=y-yprevious
+dsp=[horizontalSpeed,verticalSpeed]

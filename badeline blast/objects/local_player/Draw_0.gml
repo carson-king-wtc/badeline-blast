@@ -1,4 +1,4 @@
-/// @description Insert description here
+/// @description Draw player related things on screen
 // You can write your code in this editor
 if(hp>0)
 {
@@ -15,9 +15,9 @@ if(hp>0)
 	{
 		coll=make_color_rgb(255,192,203)
 	}
-	if(hsp!=0)
+	if(horizontalSpeed!=0)
 	{
-		image_xscaley=sign(hsp)
+		image_xscaley=sign(horizontalSpeed)
 	}
 	var xscale=image_xscaley
 	var rot=0

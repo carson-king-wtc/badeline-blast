@@ -11,9 +11,9 @@ if(hp>0)
 	{
 		coll=c_red
 	}
-	if(hsp!=0)
+	if(horizontalSpeed!=0)
 	{
-		image_xscaley=sign(hsp)
+		image_xscaley=sign(horizontalSpeed)
 	}
 	var xscale=image_xscaley
 	var rot=0

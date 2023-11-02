@@ -1,17 +1,17 @@
 /// @description Insert description here
 // You can write your code in this editor
-hsp=lengthdir_x(dashspeed,other.dir)
+horizontalSpeed=lengthdir_x(dashspeed,other.dir)
 if(other.dir==90)
 {
-	vsp=lengthdir_y(dashspeed*1.5,other.dir)
+	verticalSpeed=lengthdir_y(dashspeed*1.5,other.dir)
 }
 else if(other.dir==270)
 {
-	vsp=lengthdir_y(dashspeed*1.5,other.dir)
+	verticalSpeed=lengthdir_y(dashspeed*1.5,other.dir)
 }
 else
 {
-	vsp=-dashspeed
+	verticalSpeed=-dashspeed
 }
 audio_play_sound(sndspring,1000,false)
 framesSinceLastDash=-5

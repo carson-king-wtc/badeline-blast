@@ -1,17 +1,17 @@
-/// @description Insert description here
+/// @description inizialize the variables
 // You can write your code in this editor
-hsp=0 //the horizontal speed of the player
-vsp=0 //the vertical speed of the player
-msp=7 //the movement speed of the player
+horizontalSpeed=0 //the horizontal speed of the player
+verticalSpeed=0 //the vertical speed of the player
+movementSpeed=7 //the movement speed of the player
 jumpForce=-15 //the jump speed of the player
 minJumpForce = -5
 
 //doing msp/ number of frames we want it to take to reach the target speed.
-ACCEL= msp/6
-AIRACCEL=msp/12
-DECCEL=msp/4
-AIRDECCEL=msp/8
-AIRACCELNATURAL=msp/240
+ACCEL= movementSpeed/6
+AIRACCEL=movementSpeed/12
+DECCEL=movementSpeed/4
+AIRDECCEL=movementSpeed/8
+AIRACCELNATURAL=movementSpeed/240
 
 grav=1 //the gravity of the player
 maxFallSpeed = 20
@@ -50,26 +50,13 @@ function spawn()
 		y=irandom(room_height)
 	}
 }
-
+spawn()
 //if the player is on the floor, return true, otherwise return false
 function isOnFloor(){
 return place_meeting(x,y+1,wall)
 }
 
-//function for acceleration
-function moveToward(from,to,by){
-	
-	if (abs(from-to) < by) {
-		return to
-	}
-	
-	if (from < to) {
-		return from + by
-	}
-	
-	return from - by
-	
-}
+
 
 //this function kills the player if they have no immunity frames. 
 function reset()
@@ -80,9 +67,9 @@ function reset()
 		if(hp>0) //when player is alive
 		{
 			spawn()
-			hsp=0 //the horizontal speed of the player
-			vsp=0 //the vertical speed of the player
-			msp=7 //the movement speed of the player
+			horizontalSpeed=0 //the horizontal speed of the player
+			verticalSpeed=0 //the vertical speed of the player
+			movementSpeed=7 //the movement speed of the player
 			amountOfDashesLeft=1 //whether the player can dash
 			dashspeed=15
 			dsp=[0,0]
